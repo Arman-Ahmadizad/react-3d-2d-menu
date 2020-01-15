@@ -14,35 +14,58 @@ const Menu = () => {
     const burgerTwo = document.querySelector("#burger2");
     const burgerThree = document.querySelector("#burger3");
     const cubes = document.querySelectorAll(".cube");
+    const texts = document.querySelectorAll(".menu-texts");
     const timeLine = new TimelineMax();
 
-    if (clicked) {
+    setClicked(!clicked);
+
+    if (clicked === true) {
       timeLine
         .fromTo(
           burgerOne,
-          2,
+          1,
           { rotationX: 0, rotationY: 0, rotationZ: 0 },
           { rotationX: 360, rotationY: 360, rotationZ: 135 }
         )
         .fromTo(
           burgerTwo,
-          2,
+          1,
           { rotationX: 0, rotationY: 0, rotationZ: 0, left: 0 },
           { rotationX: 360, rotationY: 360, rotationZ: 0, left: -100 },
-          "1"
+          "0.5"
         )
         .fromTo(
           burgerThree,
-          2,
+          1,
           { rotationX: 0, rotationY: 0, rotationZ: 0, y: 0 },
           { rotationX: 360, rotationY: 360, rotationZ: -135, y: -14 },
-          "1"
+          "0.5"
         );
 
       const timeLineCubes = new TimelineMax();
-      timeLineCubes.fromTo(cubes, 3, { y: -500 }, { y: 0 });
       timeLineCubes.fromTo(
         cubes,
+        3,
+        { y: gsap.getProperty(cubes[2], "y") },
+        { y: 1000 }
+      );
+      timeLineCubes.fromTo(
+        cubes,
+        5,
+        { rotationX: 0, rotationY: 0, rotationZ: 0 },
+        { rotationX: 360, rotationY: 360, rotationZ: 360 },
+        "-1"
+      );
+
+      const timeLineText = new TimelineMax();
+      timeLineText.fromTo(
+        texts,
+        3,
+        { y: gsap.getProperty(texts[2], "y") },
+        { y: 1030 }
+      );
+      timeLineText.fromTo(
+        texts,
         5,
         { rotationX: 0, rotationY: 0, rotationZ: 0 },
         { rotationX: 360, rotationY: 360, rotationZ: 360 },
@@ -52,26 +75,55 @@ const Menu = () => {
       timeLine
         .fromTo(
           burgerOne,
-          2,
+          1,
           { rotationX: 360, rotationY: 360, rotationZ: 135 },
           { rotationX: 0, rotationY: 0, rotationZ: 0 }
         )
         .fromTo(
           burgerTwo,
-          2,
+          1,
           { rotationX: 360, rotationY: 360, rotationZ: 0, left: -100 },
           { rotationX: 0, rotationY: 0, rotationZ: 0, left: 0 },
-          "1"
+          "0.5"
         )
         .fromTo(
           burgerThree,
-          2,
+          1,
           { rotationX: 360, rotationY: 360, rotationZ: -135, y: -14 },
           { rotationX: 0, rotationY: 0, rotationZ: 0, y: 0 },
-          "1"
+          "0.5"
         );
+
+      const timeLineCubes = new TimelineMax();
+      timeLineCubes.fromTo(
+        cubes,
+        3,
+        { y: gsap.getProperty(cubes[2], "y") },
+        { y: 0 }
+      );
+      timeLineCubes.fromTo(
+        cubes,
+        5,
+        { rotationX: 360, rotationY: 360, rotationZ: 360 },
+        { rotationX: 0, rotationY: 0, rotationZ: 0 },
+        "-1"
+      );
+
+      const timeLineText = new TimelineMax();
+      timeLineText.fromTo(
+        texts,
+        3,
+        { y: gsap.getProperty(texts[2], "y") },
+        { y: 0 }
+      );
+      timeLineText.fromTo(
+        texts,
+        5,
+        { rotationX: 360, rotationY: 360, rotationZ: 360 },
+        { rotationX: 0, rotationY: 0, rotationZ: 0 },
+        "-1"
+      );
     }
-    setClicked(!clicked);
   };
 
   const onMouseAnimation = (cubes, cubeId) => {
@@ -115,21 +167,17 @@ const Menu = () => {
     );
   };
 
-  if (clicked) {
-    return (
-      <Fragment>
-        <Burgers onClick={onClickBurger} />
-        <Circles onMouseAnimation={onMouseAnimation} />
-      </Fragment>
-    );
-  }
-  else{
-    return (
-      <Fragment>
-        <Burgers onClick={onClickBurger} />
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      <Burgers
+        onClick={() => {
+          setClicked(!clicked);
+          onClickBurger();
+        }}
+      />
+      <Circles onMouseAnimation={onMouseAnimation} />
+    </Fragment>
+  );
 };
 
 export default Menu;

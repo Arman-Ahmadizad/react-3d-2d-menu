@@ -20,6 +20,7 @@ const StyledCube = styled.div`
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
+  top: -1000px;
   div {
     width: 100px;
     height: 100px;
@@ -70,8 +71,6 @@ const StyledSide = styled.div`
 
 const Circle = props => {
   const cubeRef = useRef(null);
-
-  useEffect(() => {}, []);
 
   return (
     <Fragment>
