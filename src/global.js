@@ -1,7 +1,8 @@
-@import url(fontiran.css);
+import { createGlobalStyle} from 'styled-components';
 
-
-#root,html, body, div, span, applet, object, iframe,
+export const GlobalStyles = createGlobalStyle`
+/* global styles */
+#root, html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -45,7 +46,41 @@ table {
 	border-spacing: 0;
 }
 
-#root{
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  *, *::after, *::before {
+    box-sizing: border-box;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: ${({ theme }) => theme.primaryDark};
+    color: ${({ theme }) => theme.primaryLight};
     height: 100vh;
-    width: 100vw;
-}
+    text-rendering: optimizeLegibility;
+    font-family:  IRANSans;
+  }
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  img {
+    border-radius: 5px;
+    height: auto;
+    width: 10rem;
+  }
+  div {
+    text-align: center;
+  }
+  small {
+    display: block;
+  }
+  a {
+    color: ${({ theme }) => theme.primaryHover};
+    text-decoration: none;
+  }
+`;
