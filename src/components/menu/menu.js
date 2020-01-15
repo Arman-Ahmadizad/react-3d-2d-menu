@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { TimelineMax, gsap } from "gsap/all";
 import Burgers from "./burgers";
 import Circles from "./circles";
@@ -9,12 +9,11 @@ const Menu = () => {
   const [clickedTimesCubeTwo, setClickedTimesCubeTwo] = useState(2);
   const [clickedTimesCubeThree, setClickedTimesCubeThree] = useState(2);
 
-  useEffect(() => {}, []);
-
   const onClickBurger = () => {
     const burgerOne = document.querySelector("#burger1");
     const burgerTwo = document.querySelector("#burger2");
     const burgerThree = document.querySelector("#burger3");
+    const cubes = document.querySelectorAll(".cube");
     const timeLine = new TimelineMax();
 
     if (clicked) {
@@ -39,6 +38,16 @@ const Menu = () => {
           { rotationX: 360, rotationY: 360, rotationZ: -135, y: -14 },
           "1"
         );
+
+      const timeLineCubes = new TimelineMax();
+      timeLineCubes.fromTo(cubes, 3, { y: -500 }, { y: 0 });
+      timeLineCubes.fromTo(
+        cubes,
+        5,
+        { rotationX: 0, rotationY: 0, rotationZ: 0 },
+        { rotationX: 360, rotationY: 360, rotationZ: 360 },
+        "-1"
+      );
     } else {
       timeLine
         .fromTo(
@@ -69,27 +78,26 @@ const Menu = () => {
     const timeLine = new TimelineMax();
     let value = null;
 
-    switch(cubeId){
-      case 'cubeOne':
+    switch (cubeId) {
+      case "cubeOne":
         value = clickedTimesCubeOne;
         setClickedTimesCubeOne(clickedTimesCubeOne + 1);
         break;
 
-        case 'cubeTwo':
-          value = clickedTimesCubeTwo;
-          setClickedTimesCubeTwo(clickedTimesCubeTwo + 1);
-          break;
+      case "cubeTwo":
+        value = clickedTimesCubeTwo;
+        setClickedTimesCubeTwo(clickedTimesCubeTwo + 1);
+        break;
 
-          case 'cubeThree':
-            value = clickedTimesCubeThree;
-            setClickedTimesCubeThree(clickedTimesCubeThree + 1);
-            break;
+      case "cubeThree":
+        value = clickedTimesCubeThree;
+        setClickedTimesCubeThree(clickedTimesCubeThree + 1);
+        break;
 
-        default:
-          value = 2;
-          break;
+      default:
+        value = 2;
+        break;
     }
-
 
     timeLine.fromTo(
       cubes,
@@ -107,12 +115,21 @@ const Menu = () => {
     );
   };
 
-  return (
-    <Fragment>
-      <Burgers onClick={onClickBurger} />
-      <Circles onMouseAnimation={onMouseAnimation} />
-    </Fragment>
-  );
+  if (clicked) {
+    return (
+      <Fragment>
+        <Burgers onClick={onClickBurger} />
+        <Circles onMouseAnimation={onMouseAnimation} />
+      </Fragment>
+    );
+  }
+  else{
+    return (
+      <Fragment>
+        <Burgers onClick={onClickBurger} />
+      </Fragment>
+    );
+  }
 };
 
 export default Menu;

@@ -70,19 +70,8 @@ const StyledSide = styled.div`
 
 const Circle = props => {
   const cubeRef = useRef(null);
- 
-  
 
-  useEffect(() => {
-    const timeLine = new TimelineMax();
-    timeLine.fromTo(cubeRef.current, 3, {y:-500}, {y:0});
-    timeLine.fromTo(
-      cubeRef.current,
-      5,
-      { rotationX: 0, rotationY: 0, rotationZ: 0},
-      { rotationX: 360, rotationY: 360, rotationZ: 360 },"-1"
-    );
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Fragment>
